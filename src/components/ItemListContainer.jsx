@@ -8,7 +8,7 @@ const ItemListContainer = (props) => {
         <p>
           Haga click{" "}
           <a
-            href="https://github.com/gdlizarraga/coderhouse-js-entrega-final/blob/main/README.md"
+            href="https://github.com/gdlizarraga/coderhouse-react-primer-entrega/blob/main/README.md"
             target="_blank"
             class="alert-link ch-alert-link"
           >
