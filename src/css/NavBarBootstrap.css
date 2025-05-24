@@ -1,0 +1,11 @@
+.dropdown-red-hover:hover {
+  color: #000 !important;
+  background-color: #dc3545 !important;
+}
+
+.dropdown-red-bg-hover:hover,
+.dropdown-red-bg-hover:active,
+.dropdown-red-bg-hover:focus {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+}
