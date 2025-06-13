@@ -1,68 +1,79 @@
+import "../App.css";
+import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
+import { useParams } from "react-router-dom";
+import { getProducts } from "../mock/AsyncMock";
+import ItemList from "./ItemList";
 
 const ItemListContainer = (props) => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [categoryError, setCategoryError] = useState(false);
+  const { categoryId } = useParams();
+
+  useEffect(() => {
+    setLoading(true);
+    setCategoryError(false);
+    getProducts()
+      .then((respuesta) => {
+        if (categoryId) {
+          const filtered = respuesta.filter(
+            (prod) => prod.category === categoryId
+          );
+          if (filtered.length === 0) {
+            setCategoryError(true);
+            setData([]);
+          } else {
+            setData(filtered);
+          }
+        } else {
+          setData(respuesta);
+        }
+      })
+      .catch((error) => {
+        setCategoryError(true);
+        console.log(error);
+      })
+      .finally(() => setLoading(false));
+  }, [categoryId]);
   return (
     <>
-      <Alert variant="success">
-        <Alert.Heading className="text-danger">{props.saludo}</Alert.Heading>
-        <p>
-          Haga click{" "}
-          <a
-            href="https://github.com/gdlizarraga/coderhouse-react-primer-entrega/blob/main/README.md"
-            target="_blank"
-            class="alert-link ch-alert-link"
-          >
-            aqui
-          </a>{" "}
-          para que pueda leer el readme.md donde explico que se utilizo para
-          esta primer entrega.
-        </p>
-      </Alert>
+      {loading && (
+        <div className="loading-modal">
+          <span
+            className="spinner-border spinner"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span className="loading-text"> Cargando productos...</span>
+        </div>
+      )}
       <div>
-        <h4 className="mb-3">Primera Pre-Entrega – Detalles y Requisitos</h4>
-        <ol>
-          <li>
-            <strong>Navbar</strong>
-            <ul>
-              <li>Debe incluir el nombre o logo del e-commerce.</li>
-              <li>Contener al menos tres categorías de productos.</li>
-              <li>Mostrar dentro de él el componente CartWidget.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>CartWidget</strong>
-            <ul>
-              <li>
-                Debe ser un componente que retorne un icono de carrito (puede
-                ser una imagen o un ícono de React Icons).
-              </li>
-              <li>
-                Mostrar un número junto al icono, que represente la cantidad de
-                ítems en el carrito.
-              </li>
-              <li>
-                Por ahora, el número debe estar harcodeado, pero más adelante
-                será dinámico.
-              </li>
-            </ul>
-          </li>
-          <li>
-            <strong>ItemListContainer</strong>
-            <ul>
-              <li>Se debe llamar debajo del Navbar en App.js.</li>
-              <li>
-                Debe recibir una prop desde App.js y renderizarla en pantalla.
-              </li>
-            </ul>
-          </li>
-        </ol>
-      </div>
-      <div className="text-center mt-4">
-        <img
-          src="/estructura_primer_entrega.png"
-          alt="Estructura Primer Entrega"
-          style={{ maxWidth: "100%", height: "auto", borderRadius: "8px" }}
-        />
+        {!loading && categoryError && (
+          <Alert variant="danger" className="text-center">
+            <Alert.Heading className="text-danger">
+              Categoría no encontrada
+            </Alert.Heading>
+            <p>
+              La categoría <b>{categoryId.toUpperCase()}</b> no existe o no
+              tiene productos.
+            </p>
+          </Alert>
+        )}
+        {!loading && !categoryError && (
+          <>
+            <Alert variant="success">
+              <Alert.Heading className="text-danger">
+                <span>{props.saludo}</span>
+                <span className="header-tiutlo">
+                  {" "}
+                  {categoryId && categoryId.toUpperCase()}
+                </span>
+              </Alert.Heading>
+            </Alert>
+            <ItemList data={data} />
+          </>
+        )}
       </div>
     </>
   );

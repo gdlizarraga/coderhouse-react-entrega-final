@@ -3,13 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import CartWidgetIcons from "./CartWidgetIcons";
+import { NavLink } from "react-router-dom";
 import "../css/NavBarBootstrap.css";
 
 function NavBarBootstrap() {
   return (
     <Navbar expand="lg" className="bg-dark navbar-dark">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={NavLink} to="/">
           <img
             src="/logo.png"
             alt="Logo"
@@ -20,29 +21,37 @@ function NavBarBootstrap() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link as={NavLink} to="/">
+              Home
+            </Nav.Link>
             <NavDropdown title="Productos" id="basic-nav-dropdown">
               <NavDropdown.Item
                 className="dropdown-red-bg-hover"
-                href="#categoria/electronica"
+                as={NavLink}
+                to="/categoria/electronica"
               >
                 Electrónica
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 className="dropdown-red-bg-hover"
-                href="#categoria/ropa"
+                as={NavLink}
+                to="/categoria/ropa"
               >
                 Ropa
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
                 className="dropdown-red-bg-hover"
-                href="#categoria/hogar"
+                as={NavLink}
+                to="/categoria/hogar"
               >
                 Hogar
               </NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link as={NavLink} to="/indicaciones">
+              Indicaciones
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
         <CartWidgetIcons />

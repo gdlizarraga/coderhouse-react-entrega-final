@@ -4,7 +4,7 @@ const CartWidgetIcons = () => {
   return (
     <div>
       <PiShoppingCartLight fontSize={"1.3rem"} color="white" />
-      <Badge bg="danger">{2}</Badge>
+      <Badge bg="danger">{0}</Badge>
     </div>
   );
 };
