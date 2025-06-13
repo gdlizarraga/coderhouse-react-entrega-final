@@ -9,7 +9,7 @@ const Indicaciones = (props) => {
         <p>
           Haga click{" "}
           <a
-            href="https://github.com/gdlizarraga/coderhouse-react-primer-entrega/blob/main/README.md"
+            href="https://github.com/gdlizarraga/coderhouse-react-segunda-entrega/blob/main/README.md"
             target="_blank"
             className="alert-link ch-alert-link"
           >

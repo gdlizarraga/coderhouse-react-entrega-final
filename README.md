@@ -1,4 +1,4 @@
-# Proyecto ReactJS - Coderhouse
+# Proyecto ReactJS - Coderhouse - Segunda Entrega
 
 ## Descripción
 
@@ -25,7 +25,7 @@ Este proyecto es una aplicación de e-commerce desarrollada como parte del curso
 
 1. Clonar el repositorio:
    ```sh
-   git clone [URL_DEL_REPOSITORIO]
+   git clone https://github.com/gdlizarraga/coderhouse-react-segunda-entrega.git
    ```
 2. Instalar dependencias:
    ```sh
