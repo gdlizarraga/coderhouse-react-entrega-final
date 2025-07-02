@@ -1,4 +1,4 @@
-# Proyecto ReactJS - Coderhouse - Segunda Entrega
+# Proyecto ReactJS - Coderhouse - Entrega Final
 
 ## Descripción
 
