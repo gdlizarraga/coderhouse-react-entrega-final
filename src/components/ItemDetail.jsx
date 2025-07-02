@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import ItemCount from "./ItemCount";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+
 const ItemDetail = ({ detail }) => {
+  const { agregarItem } = useContext(CartContext);
+  const [comprar, setComprar] = useState(false);
+
   const onAdd = (cantidad) => {
     Swal.fire({
       icon: "success",
@@ -14,6 +20,8 @@ const ItemDetail = ({ detail }) => {
       position: "top-end",
       toast: true,
     });
+    agregarItem(detail, cantidad);
+    setComprar(true);
   };
 
   return (
@@ -30,7 +38,14 @@ const ItemDetail = ({ detail }) => {
           <span className="stock-cantidad">{detail.stock}</span>
         </p>
         <div className="item-count">
-          <ItemCount stock={detail.stock} onAdd={onAdd} />
+          {comprar ? (
+            <Link className="btn btn-danger" to="/cart">
+              {" "}
+              Ir al Carrito
+            </Link>
+          ) : (
+            <ItemCount stock={detail.stock} onAdd={onAdd} />
+          )}
         </div>
       </div>
     </div>

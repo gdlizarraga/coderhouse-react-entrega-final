@@ -11,7 +11,11 @@ const Item = ({ prod }) => {
           <p className="card-text">${price},00</p>
         </div>
         <div className="link">
-          <Link to={`/item/${id}`} className="btn btn-primary">
+          <Link
+            to={`/item/${id}`}
+            className="btn btn-primary"
+            style={{ fontSize: "0.80rem" }}
+          >
             Ver más
           </Link>
         </div>

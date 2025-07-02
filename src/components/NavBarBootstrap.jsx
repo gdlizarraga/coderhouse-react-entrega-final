@@ -5,6 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import CartWidgetIcons from "./CartWidgetIcons";
 import { NavLink } from "react-router-dom";
 import "../css/NavBarBootstrap.css";
+import CartWidget from "./CartWidget";
 
 function NavBarBootstrap() {
   return (
@@ -52,6 +53,7 @@ function NavBarBootstrap() {
             <Nav.Link as={NavLink} to="/indicaciones">
               Indicaciones
             </Nav.Link>
+            {/* <CartWidget /> */}
           </Nav>
         </Navbar.Collapse>
         <CartWidgetIcons />
