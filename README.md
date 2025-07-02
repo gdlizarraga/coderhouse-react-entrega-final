@@ -17,7 +17,7 @@ Este proyecto es una aplicación de e-commerce desarrollada como parte del curso
 
 ## Version Host
 
-Si desea ver una demo del proyecto online, puede ingresar al siguiente link: [CoderFlexApp]()
+Si desea ver una demo del proyecto online, puede ingresar al siguiente link: [coderhouse-react-entrega-final](https://coderhouse-react-entrega-final.vercel.app/)
 
 ## Librerias/Tecnologías utilizadas
 
