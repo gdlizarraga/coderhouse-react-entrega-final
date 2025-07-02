@@ -8,12 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 const Checkout = () => {
-  // const [buyer, setBuyer] = useState({
-  //   name: "",
-  //   direccion: "",
-  //   email: "",
-  // });
-  // const [validMail, setValidMail] = useState("");
   const [orderId, setOrderId] = useState("");
   const { cart, totalAPagar, limpiar } = useContext(CartContext);
   const navigate = useNavigate();
@@ -31,30 +25,7 @@ const Checkout = () => {
     }
   }, [cart, navigate, orderId]);
 
-  // const buyerData = (e) => {
-  //   setBuyer({
-  //     ...buyer,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
   const finalizarCompra = (dataFormulario) => {
-    // Si hay errores, mostrar todos en un solo alert
-    // if (errores.length > 0) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Errores de Validación",
-    //     html:
-    //       "Se encontraron los siguientes errores:<br><br>" +
-    //       errores.join("<br>"),
-    //     confirmButtonColor: "#d33",
-    //     confirmButtonText: "Entendido",
-    //     showConfirmButton: true,
-    //     position: "center",
-    //   });
-    //   return;
-    // }
-
     let order = {
       comprador: {
         name: dataFormulario.name, // nombre del comprador
