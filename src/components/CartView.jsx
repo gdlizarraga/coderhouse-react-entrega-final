@@ -2,9 +2,32 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import Alert from "react-bootstrap/Alert";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CartView = () => {
   const { cart, limpiar, eliminarItem, totalAPagar } = useContext(CartContext);
+  const confirmarVaciarCarrito = () => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción eliminará todos los productos del carrito",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sí, vaciar carrito",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        limpiar();
+        Swal.fire(
+          "¡Carrito vacio!",
+          "Todos los productos han sido eliminados.",
+          "success"
+        );
+      }
+    });
+  };
+
   return (
     <>
       <Alert variant="success">
@@ -27,7 +50,10 @@ const CartView = () => {
                 marginLeft: "auto",
               }}
             >
-              <button className="btn btn-danger" onClick={limpiar}>
+              <button
+                className="btn btn-danger"
+                onClick={confirmarVaciarCarrito}
+              >
                 Vaciar carrito
               </button>
               <Link className="btn btn-success" to="/checkout">

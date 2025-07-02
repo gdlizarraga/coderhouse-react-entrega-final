@@ -5,24 +5,17 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../service/firebase";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 const Checkout = () => {
-  // const [buyer, setBuyer] = useState({
-  //   name: "",
-  //   direccion: "",
-  //   email: "",
-  // });
-  // const [validMail, setValidMail] = useState("");
+  const [buyer, setBuyer] = useState({
+    name: "",
+    direccion: "",
+    email: "",
+  });
+  const [validMail, setValidMail] = useState("");
   const [orderId, setOrderId] = useState("");
   const { cart, totalAPagar, limpiar } = useContext(CartContext);
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm();
 
   // Verificar si el carrito está vacío y redirigir al home
   useEffect(() => {
@@ -31,36 +24,61 @@ const Checkout = () => {
     }
   }, [cart, navigate, orderId]);
 
-  // const buyerData = (e) => {
-  //   setBuyer({
-  //     ...buyer,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const buyerData = (e) => {
+    setBuyer({
+      ...buyer,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const finalizarCompra = (dataFormulario) => {
+  const finalizarCompra = (e) => {
+    e.preventDefault();
+
+    let errores = [];
+
+    // Validaciones
+    if (!buyer.name || buyer.name.trim() === "") {
+      errores.push("• Por favor, ingrese su nombre completo");
+    }
+
+    if (!buyer.direccion || buyer.direccion.trim() === "") {
+      errores.push("• Por favor, ingrese su dirección");
+    }
+
+    if (!buyer.email || buyer.email.trim() === "") {
+      errores.push("• Por favor, ingrese su correo electrónico");
+    }
+
+    if (!validMail || validMail.trim() === "") {
+      errores.push("• Por favor, confirme su correo electrónico");
+    }
+
+    if (buyer.email && validMail && buyer.email !== validMail) {
+      errores.push("• Los correos electrónicos no coinciden");
+    }
+
+    if (cart.length === 0) {
+      errores.push("• Su carrito está vacío");
+    }
+
     // Si hay errores, mostrar todos en un solo alert
-    // if (errores.length > 0) {
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Errores de Validación",
-    //     html:
-    //       "Se encontraron los siguientes errores:<br><br>" +
-    //       errores.join("<br>"),
-    //     confirmButtonColor: "#d33",
-    //     confirmButtonText: "Entendido",
-    //     showConfirmButton: true,
-    //     position: "center",
-    //   });
-    //   return;
-    // }
+    if (errores.length > 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Errores de Validación",
+        html:
+          "Se encontraron los siguientes errores:<br><br>" +
+          errores.join("<br>"),
+        confirmButtonColor: "#d33",
+        confirmButtonText: "Entendido",
+        showConfirmButton: true,
+        position: "center",
+      });
+      return;
+    }
 
     let order = {
-      comprador: {
-        name: dataFormulario.name, // nombre del comprador
-        address: dataFormulario.direccion, // dirección del comprador
-        email: dataFormulario.email, // email del comprador
-      }, // datos del comprador
+      comprador: buyer, // datos del comprador
       compras: cart,
       total: totalAPagar(), // total de la compra
       date: new Date().toLocaleDateString(), // fecha de la compra puede ser serverTimestamp()
@@ -129,7 +147,7 @@ const Checkout = () => {
               padding: "2rem",
             }}
           >
-            <form onSubmit={handleSubmit(finalizarCompra)}>
+            <form onSubmit={finalizarCompra}>
               <div className="mb-4">
                 <label
                   htmlFor="name"
@@ -147,26 +165,14 @@ const Checkout = () => {
                   id="name"
                   name="name"
                   placeholder="Ingrese su nombre completo"
+                  required
+                  onChange={buyerData}
                   style={{
                     padding: "0.75rem",
                     borderRadius: "8px",
                     border: "2px solid #dee2e6",
                   }}
-                  {...register("name", {
-                    required: true, // Custom error message
-                    minLength: 2,
-                  })}
                 />
-                {errors?.name?.type === "required" && (
-                  <span className="text-danger">
-                    Este campo es obligatorio.
-                  </span>
-                )}
-                {errors?.name?.type === "minLength" && (
-                  <span className="text-danger">
-                    Este campo debe tener al menos 2 caracteres como mínimo.
-                  </span>
-                )}
               </div>
 
               <div className="mb-4">
@@ -186,32 +192,14 @@ const Checkout = () => {
                   id="direccion"
                   name="direccion"
                   placeholder="Ingrese su dirección"
+                  required
+                  onChange={buyerData}
                   style={{
                     padding: "0.75rem",
                     borderRadius: "8px",
                     border: "2px solid #dee2e6",
                   }}
-                  {...register("direccion", {
-                    required: true, // Custom error message
-                    minLength: 5,
-                    maxLength: 60,
-                  })}
                 />
-                {errors?.direccion?.type === "required" && (
-                  <span className="text-danger">
-                    Este campo es obligatorio.
-                  </span>
-                )}
-                {errors?.direccion?.type === "minLength" && (
-                  <span className="text-danger">
-                    Este campo debe tener al menos 10 caracteres como mínimo.
-                  </span>
-                )}
-                {errors?.direccion?.type === "maxLength" && (
-                  <span className="text-danger">
-                    Este campo debe tener como máximo 60 caracteres.
-                  </span>
-                )}
               </div>
 
               <div className="mb-4">
@@ -231,20 +219,14 @@ const Checkout = () => {
                   id="email"
                   name="email"
                   placeholder="Ingrese su correo electrónico"
+                  required
+                  onChange={buyerData}
                   style={{
                     padding: "0.75rem",
                     borderRadius: "8px",
                     border: "2px solid #dee2e6",
                   }}
-                  {...register("email", {
-                    required: true, // Custom error message
-                  })}
                 />
-                {errors?.email?.type === "required" && (
-                  <span className="text-danger">
-                    Este campo es obligatorio.
-                  </span>
-                )}
               </div>
 
               <div className="mb-4">
@@ -264,28 +246,14 @@ const Checkout = () => {
                   id="emailConfirm"
                   name="emailConfirm"
                   placeholder="Repita su correo electrónico"
+                  required
+                  onChange={(e) => setValidMail(e.target.value)}
                   style={{
                     padding: "0.75rem",
                     borderRadius: "8px",
                     border: "2px solid #dee2e6",
                   }}
-                  {...register("emailConfirm", {
-                    required: true, // Custom error message
-                    validate: {
-                      equalsMails: (mail2) => mail2 === getValues().email,
-                    },
-                  })}
                 />
-                {errors?.emailConfirm?.type === "required" && (
-                  <span className="text-danger">
-                    Este campo es obligatorio.
-                  </span>
-                )}
-                {errors?.emailConfirm?.type === "equalsMails" && (
-                  <span className="text-danger">
-                    Los mails deben coincidir.
-                  </span>
-                )}
               </div>
 
               <div

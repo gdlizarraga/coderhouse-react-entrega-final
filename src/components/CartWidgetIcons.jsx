@@ -10,7 +10,6 @@ const CartWidgetIcons = () => {
       {cart.length > 0 ? (
         <Link
           to="/cart"
-          to="/cart"
           style={{
             textDecoration: "none",
             display: "flex",
