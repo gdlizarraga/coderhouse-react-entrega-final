@@ -4,6 +4,8 @@
 
 Este proyecto es una aplicación de e-commerce desarrollada como parte del curso de ReactJS en Coderhouse. El objetivo principal es aplicar los conceptos aprendidos en clase, tales como componentes, props, hooks, rutas, context, manejo de estado y consumo de datos via firebase, para construir una tienda online funcional y visualmente atractiva.
 
+![image](/public/home.png)
+
 ## Funcionalidades principales
 
 - **Listado de productos:** Visualización de todos los productos disponibles.
