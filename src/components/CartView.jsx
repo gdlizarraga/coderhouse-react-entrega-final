@@ -31,25 +31,10 @@ const CartView = () => {
   return (
     <>
       <Alert variant="success">
-        <Alert.Heading
-          className="text-danger"
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
+        <Alert.Heading className="text-danger alert-heading">
           <span className="header-tiutlo">Detalle de tu Carrito</span>
           {cart.length > 0 && (
-            <div
-              style={{
-                display: "flex",
-                gap: "0.7rem",
-                marginTop: "0.5rem",
-                marginLeft: "auto",
-              }}
-            >
+            <div className="alert-actions">
               <button
                 className="btn btn-danger"
                 onClick={confirmarVaciarCarrito}
@@ -63,54 +48,21 @@ const CartView = () => {
           )}
         </Alert.Heading>
       </Alert>
-      <div
-        style={{
-          margin: "1rem auto",
-          background: "#fff",
-          borderRadius: "16px",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
-          padding: "0.5rem 0.5rem",
-        }}
-      >
+      <div className="cart-view-container">
         <div style={{ width: "100%" }}>
-          {/* si quieren lo pueden hacer asi tambien */}
-          {/* {cart.map((compra)=><CartItem key={compra.id} compra={compra}/>)} */}
           {cart.map((compra) => (
-            <div
-              key={compra.id}
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: "1rem",
-                borderBottom: "1px solid #e0e0e0",
-                padding: "1rem 0",
-              }}
-            >
+            <div className="cart-view-item" key={compra.id}>
               <img
+                className="cart-view-item-image"
                 src={compra.img}
                 alt={compra.name}
-                style={{
-                  width: "7rem",
-                  height: "7rem",
-                  objectFit: "cover",
-                  borderRadius: "10px",
-                  boxShadow: "0 1px 6px rgba(0,0,0,0.07)",
-                }}
               />
               <span style={{ flex: "1 1 120px", fontWeight: 600 }}>
                 {compra.name}
               </span>
               <span style={{ minWidth: "90px" }}>${compra.price}</span>
               <span style={{ minWidth: "60px" }}>x{compra.cantidad}</span>
-              <span
-                style={{
-                  minWidth: "120px",
-                  color: "#1976d2",
-                  fontWeight: 600,
-                }}
-              >
+              <span className="cart-view-item-total">
                 Total: $
                 {(
                   Number(compra.price.toString().replace(/\./g, "")) *
@@ -118,20 +70,8 @@ const CartView = () => {
                 ).toLocaleString("es-AR")}
               </span>
               <button
-                className="btn btn-danger"
+                className="btn btn-danger cart-view-item-remove"
                 onClick={() => eliminarItem(compra.id)}
-                style={{
-                  minWidth: "30px",
-                  minHeight: "30px",
-                  borderRadius: "50%",
-                  fontWeight: "bold",
-                  fontSize: "0.60rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.10)",
-                  transition: "background 0.2s",
-                }}
                 title="Eliminar producto"
               >
                 X
@@ -142,61 +82,14 @@ const CartView = () => {
 
         {cart.length > 0 && (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-end",
-                marginTop: "1rem",
-                marginBottom: "1rem",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "1.3rem",
-                  fontWeight: "bold",
-                  color: "#222",
-                  background: "#f8f9fa",
-                  padding: "0.7rem 1.5rem",
-                  borderRadius: "10px",
-                  boxShadow: "0 1px 6px rgba(0,0,0,0.04)",
-                }}
-              >
+            <div className="cart-view-total">
+              <span className="cart-view-total-label">
                 Total a pagar: ${totalAPagar()}
               </span>
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "space-between",
-                alignItems: "center",
-                gap: "1rem",
-                width: "100%",
-              }}
-            ></div>
+            <div className="cart-view-actions"></div>
           </>
         )}
-        {/* Responsive styles */}
-        <style>
-          {`
-          @media (max-width: 700px) {
-            .header-tiutlo {
-              font-size: 1.2rem !important;
-            }
-            div[style*="display: flex"][style*="align-items: center"] {
-              flex-direction: column !important;
-              align-items: stretch !important;
-              gap: 1.2rem !important;
-            }
-            img {
-              width: 100% !important;
-              height: auto !important;
-              margin-bottom: 0.5rem;
-            }
-          }
-        `}
-        </style>
       </div>
     </>
   );

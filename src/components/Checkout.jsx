@@ -66,9 +66,9 @@ const Checkout = () => {
   return (
     <>
       {orderId ? (
-        <Alert variant="success" className="text-center">
-          <Alert.Heading className="text-danger">
-            ¡Gracias por su compra!
+        <Alert variant="success">
+          <Alert.Heading className="text-danger alert-heading">
+            <span className="header-tiutlo">¡Gracias por su compra!</span>
           </Alert.Heading>
           <p>
             Su orden ha sido procesada con éxito. Su número de orden es:{" "}
@@ -78,51 +78,25 @@ const Checkout = () => {
       ) : (
         <>
           <Alert variant="success">
-            <Alert.Heading
-              className="text-danger"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flexWrap: "wrap",
-              }}
-            >
+            <Alert.Heading className="text-danger alert-heading">
               <span className="header-tiutlo">Complete con sus Datos</span>
             </Alert.Heading>
           </Alert>
-          <div
-            style={{
-              maxWidth: "600px",
-              margin: "2rem auto",
-              background: "#fff",
-              borderRadius: "16px",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
-              padding: "2rem",
-            }}
-          >
+          <div className="checkout-view-container">
             <form onSubmit={handleSubmit(finalizarCompra)}>
               <div className="mb-4">
                 <label
                   htmlFor="name"
-                  className="form-label"
-                  style={{
-                    fontWeight: "600",
-                    marginBottom: "0.5rem",
-                  }}
+                  className="form-label checkout-view-label"
                 >
                   Nombre Completo
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control checkout-view-input"
                   id="name"
                   name="name"
                   placeholder="Ingrese su nombre completo"
-                  style={{
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    border: "2px solid #dee2e6",
-                  }}
                   {...register("name", {
                     required: true, // Custom error message
                     minLength: 2,
@@ -143,25 +117,16 @@ const Checkout = () => {
               <div className="mb-4">
                 <label
                   htmlFor="direccion"
-                  className="form-label"
-                  style={{
-                    fontWeight: "600",
-                    marginBottom: "0.5rem",
-                  }}
+                  className="form-label checkout-view-label"
                 >
                   Dirección
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control checkout-view-input"
                   id="direccion"
                   name="direccion"
                   placeholder="Ingrese su dirección"
-                  style={{
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    border: "2px solid #dee2e6",
-                  }}
                   {...register("direccion", {
                     required: true, // Custom error message
                     minLength: 5,
@@ -188,25 +153,16 @@ const Checkout = () => {
               <div className="mb-4">
                 <label
                   htmlFor="email"
-                  className="form-label"
-                  style={{
-                    fontWeight: "600",
-                    marginBottom: "0.5rem",
-                  }}
+                  className="form-label checkout-view-label"
                 >
                   Correo Electrónico
                 </label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control checkout-view-input"
                   id="email"
                   name="email"
                   placeholder="Ingrese su correo electrónico"
-                  style={{
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    border: "2px solid #dee2e6",
-                  }}
                   {...register("email", {
                     required: true, // Custom error message
                   })}
@@ -221,25 +177,16 @@ const Checkout = () => {
               <div className="mb-4">
                 <label
                   htmlFor="emailConfirm"
-                  className="form-label"
-                  style={{
-                    fontWeight: "600",
-                    marginBottom: "0.5rem",
-                  }}
+                  className="form-label checkout-view-label"
                 >
                   Repita Correo Electrónico
                 </label>
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control checkout-view-input"
                   id="emailConfirm"
                   name="emailConfirm"
                   placeholder="Repita su correo electrónico"
-                  style={{
-                    padding: "0.75rem",
-                    borderRadius: "8px",
-                    border: "2px solid #dee2e6",
-                  }}
                   {...register("emailConfirm", {
                     required: true, // Custom error message
                     validate: {
@@ -259,22 +206,10 @@ const Checkout = () => {
                 )}
               </div>
 
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "2rem",
-                }}
-              >
+              <div className="checkout-view-actions">
                 <button
-                  className="btn btn-success"
+                  className="btn btn-success checkout-view-button"
                   type="submit"
-                  style={{
-                    padding: "0.75rem 2rem",
-                    fontSize: "1.1rem",
-                    fontWeight: "bold",
-                    borderRadius: "8px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  }}
                 >
                   Finalizar Compra
                 </button>

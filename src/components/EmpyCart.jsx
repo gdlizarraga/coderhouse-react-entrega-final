@@ -5,13 +5,12 @@ const EmpyCart = () => {
   return (
     <div>
       <Alert variant="success">
-        <Alert.Heading className="text-danger">
-          <span></span>
-          <span className="header-tiutlo">Carrito vacio</span>
-          <h4>
-            Usted puede ver nuestros productos <Link to="/">aqui</Link>
-          </h4>
+        <Alert.Heading className="text-danger alert-heading">
+          <span>Carrito vacio</span>
         </Alert.Heading>
+        <p>
+          Usted puede ver nuestros productos <Link to="/">aqui</Link>
+        </p>
       </Alert>
     </div>
   );

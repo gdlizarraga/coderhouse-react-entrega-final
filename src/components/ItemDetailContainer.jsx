@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-//import { getOneProduct } from "../mock/AsyncMock";
+
 import ItemDetail from "./ItemDetail";
 import { useParams } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
@@ -45,21 +45,13 @@ const ItemDetailContainer = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   getOneProduct(id)
-  //     .then((res) => setDetail(res))
-  //     .catch((error) => console.log(error))
-  //     .finally(() => setLoading(false));
-  // }, []);
-
   return (
     <>
       {loading && <LoaderComponent />}
       {!loading && (invalid || Object.keys(detail).length === 0) && (
-        <Alert variant="danger" className="text-center">
+        <Alert variant="danger">
           <Alert.Heading className="text-danger">
-            Producto no encontrado
+            <span>Producto no encontrado</span>
           </Alert.Heading>
           <p>El producto solicitado no existe o no se pudo cargar.</p>
         </Alert>

@@ -2,7 +2,6 @@ import "../App.css";
 import { useEffect, useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import { useParams } from "react-router-dom";
-//import { getProducts, productos } from "../mock/AsyncMock";
 import ItemList from "./ItemList";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../service/firebase";
@@ -41,47 +40,7 @@ const ItemListContainer = (props) => {
       .finally(() => {
         setLoading(false);
       });
-    // if (categoryId) {
-    //   const filtered = res.docs.filter(
-    //     (prod) => prod.data().category === categoryId
-    //   );
-    //   if (filtered.length === 0) {
-    //     setCategoryError(true);
-    //     setData([]);
-    //   } else {
-    //     setData(filtered.map((doc) => ({ id: doc.id, ...doc.data() })));
-    //   }
-    // } else {
-    //   setData(res.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    // }
-    // setLoading(false);
   }, [categoryId]);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setCategoryError(false);
-  //   getProducts()
-  //     .then((respuesta) => {
-  //       if (categoryId) {
-  //         const filtered = respuesta.filter(
-  //           (prod) => prod.category === categoryId
-  //         );
-  //         if (filtered.length === 0) {
-  //           setCategoryError(true);
-  //           setData([]);
-  //         } else {
-  //           setData(filtered);
-  //         }
-  //       } else {
-  //         setData(respuesta);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       setCategoryError(true);
-  //       console.log(error);
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, [categoryId]);
 
   return (
     <>
@@ -97,9 +56,9 @@ const ItemListContainer = (props) => {
       )}
       <div>
         {!loading && categoryError && (
-          <Alert variant="danger" className="text-center">
-            <Alert.Heading className="text-danger">
-              Categoría no encontrada
+          <Alert variant="danger">
+            <Alert.Heading className="text-danger alert-heading">
+              <span>Categoría no encontrada</span>
             </Alert.Heading>
             <p>
               La categoría{" "}

@@ -6,8 +6,6 @@ export const CartContext = createContext();
 // crear el proveedor
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  //datos y logica del carrito
-  //funciones que modifiquen cart
 
   //agregar un item al carrito
   const agregarItem = (item, cant) => {
@@ -24,25 +22,10 @@ export const CartProvider = ({ children }) => {
         }
       });
       setCart(carritoActualizado);
-
-      //version corta
-      // setCart(
-      //    cart.map((prod)=>{
-      //     if(item.id === prod.id){
-      //         //sumar las cantidades
-      //         return {...prod, quantity: prod.quantity + cantidad}
-      //     }else{
-      //         //retornar el obj sin modificar
-      //         return prod
-      //     }
-      // })
-      // )
     } else {
       //agrego el item nuevo
       setCart([...cart, { ...item, cantidad: cant }]);
     }
-    // console.log("item:",item,'cantidad:', cantidad)
-    // console.log({...item, quantity:cantidad})
   };
 
   //elimine un item del array
@@ -79,9 +62,6 @@ export const CartProvider = ({ children }) => {
     return total.toLocaleString("es-AR");
   };
 
-  // const contextValue ={
-  //     cart,
-  // }
   return (
     <CartContext.Provider
       value={{

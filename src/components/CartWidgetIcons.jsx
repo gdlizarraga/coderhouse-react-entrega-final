@@ -10,18 +10,7 @@ const CartWidgetIcons = () => {
       {cart.length > 0 ? (
         <Link
           to="/cart"
-          style={{
-            textDecoration: "none",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.3rem",
-            padding: "0.5rem 0.8rem",
-            borderRadius: "8px",
-            backgroundColor: "rgba(255,255,255,0.1)",
-            border: "1px solid rgba(255,255,255,0.3)",
-            transition: "all 0.3s ease",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          }}
+          className="cart-widget-icons"
           onMouseEnter={(e) => {
             e.target.style.backgroundColor = "rgba(255,255,255,0.2)";
             e.target.style.transform = "scale(1.05)";
